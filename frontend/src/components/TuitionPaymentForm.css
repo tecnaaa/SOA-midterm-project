@@ -1,0 +1,80 @@
+/* Styling cho khung chính của form đa bước */
+
+.payment-form-wrapper {
+    display: flex;
+    max-width: 1000px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+}
+
+
+/* Cột bên trái: Step Indicator (Thanh tiến trình) */
+
+.payment-form-sidebar {
+    width: 300px;
+    /* Chiều rộng cố định */
+    background: #e8f5e9;
+    /* Màu nền nhẹ nhàng */
+    border-radius: 12px 0 0 12px;
+    padding: 30px 0;
+    flex-shrink: 0;
+    /* Đảm bảo không bị co lại */
+}
+
+
+/* Cột bên phải: Nội dung form */
+
+.payment-form-content {
+    flex-grow: 1;
+    padding: 40px;
+}
+
+
+/* Tiêu đề chung */
+
+.payment-form-content h2 {
+    color: #388e3c;
+    /* Màu xanh lá cây đậm */
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+
+/* Nút bấm chung */
+
+.btn-primary {
+    background: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #388e3c;
+}
+
+.btn-secondary {
+    background: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-right: 15px;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #bbb;
+}

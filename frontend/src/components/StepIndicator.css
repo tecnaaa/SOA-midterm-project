@@ -1,0 +1,78 @@
+/* Styling cho thanh tiến trình */
+
+.step-indicator {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+}
+
+.step-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+    /* Màu mặc định */
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 10;
+    /* Đảm bảo nằm trên đường kẻ */
+    transition: all 0.3s;
+}
+
+.step-label {
+    margin-left: 15px;
+    font-size: 15px;
+    color: #555;
+    font-weight: normal;
+}
+
+
+/* Trạng thái ACTIVE (Bước hiện tại) */
+
+.step-item.active .step-circle {
+    background-color: #4caf50;
+    /* Màu xanh lá cây */
+    box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.step-item.active .step-label {
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* Trạng thái COMPLETED (Đã hoàn thành) */
+
+.step-item.completed .step-circle {
+    background-color: #388e3c;
+    font-size: 18px;
+}
+
+
+/* Đường kẻ nối */
+
+.step-line {
+    position: absolute;
+    left: 14px;
+    /* Căn giữa circle */
+    top: 30px;
+    bottom: -15px;
+    width: 2px;
+    background-color: #ccc;
+}
+
+.step-item:last-child .step-line {
+    display: none;
+    /* Ẩn đường kẻ ở bước cuối */
+}

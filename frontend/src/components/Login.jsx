@@ -2,21 +2,31 @@
 import { useState } from "react";
 import "../styles/Login.css";
 
+import Swal from "sweetalert2";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Email: ${email}, Password: ${password}`);
-  };
+ const handleSubmit = (e) => {
+  e.preventDefault();
+
+  Swal.fire({
+    icon: "info", // có thể là "success", "error", "warning", "question"
+    title: "Thông tin đăng nhập",
+    html: `<p><b>Email:</b> ${email}</p>
+           <p><b>Password:</b> ${password}</p>`,
+    confirmButtonText: "OK"
+  });
+};
+
 
   return (
     <div className="login-page">
 
       {/* Form login */}
       <div className="login-box">
-        <h2>LOGIN</h2>
+        <h1>StudentPay💳</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
@@ -53,4 +63,4 @@ export default function Login() {
       </div>
     </div>
   );
-}
+} 
