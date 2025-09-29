@@ -3,10 +3,10 @@ const MOCK_USER_DATA = {
     // Thông tin người nộp tiền (Payer Info)
     fullName: 'Nguyễn Văn A',
     phoneNumber: '0912345678',
-    email: 'vana@example.com', // Cần cho việc gửi OTP
+    email: 'student@example.com', // Cần cho việc gửi OTP
     address: '123 Đường ABC',
     availableBalance: 50000000, // Số dư khả dụng
-    userId: 'USER_MOCK_123',
+    userId: '123',
     accessToken: 'MOCK_TOKEN_XYZ' 
 };
 

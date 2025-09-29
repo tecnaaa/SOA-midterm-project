@@ -1,5 +1,6 @@
 import React from 'react';
 import './StepIndicator.css'; // <--- LIÊN KẾT CSS
+import bg from '../assets/images/gradient.jpg';
 
 const StepIndicator = ({ currentStep, totalSteps }) => {
   const steps = [

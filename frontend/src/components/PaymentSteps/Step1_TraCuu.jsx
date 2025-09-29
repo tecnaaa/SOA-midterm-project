@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Step1_TraCuu.css'; 
+import bg from '../../assets/images/gradient.jpg';
 
 const Step1_TraCuu = ({ data, updateData, nextStep }) => {
   const [studentIdInput, setStudentIdInput] = useState(data.studentId);
@@ -28,7 +29,8 @@ const Step1_TraCuu = ({ data, updateData, nextStep }) => {
   };
 
   return (
-    <div className="step-content">
+    <div className="step1-container">
+          <div className="step-content">
       <h2>1. Thông tin Người nộp tiền & Tra cứu Học phí</h2>
       
       {/* ---------------------------------------------------- */}
@@ -105,6 +107,9 @@ const Step1_TraCuu = ({ data, updateData, nextStep }) => {
         </>
       )}
     </div>
+    </div>
+
+
   );
 };
 

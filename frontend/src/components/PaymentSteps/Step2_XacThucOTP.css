@@ -1,5 +1,13 @@
 /* Styling riêng cho bước 2 */
 
+.step-content {
+    background: white;
+    /* nền trắng mờ để nổi bật trên background */
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 800px;
+}
+
 .otp-info {
     margin-bottom: 25px;
     color: #333;
@@ -14,7 +22,7 @@
 
 .otp-input-field {
     padding: 12px;
-    font-size: 18px;
+    font-size: 12px;
     text-align: center;
     letter-spacing: 5px;
     border: 2px solid #ccc;

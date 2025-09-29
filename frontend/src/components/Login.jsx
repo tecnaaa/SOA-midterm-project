@@ -1,24 +1,47 @@
 // frontend/src/Login.jsx
 import { useState } from "react";
-import "../styles/Login.css";
+import "./Login.css"; // import file CSS riêng
 
 import Swal from "sweetalert2";
 
-export default function Login() {
+export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
- const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  Swal.fire({
-    icon: "info", // có thể là "success", "error", "warning", "question"
-    title: "Thông tin đăng nhập",
-    html: `<p><b>Email:</b> ${email}</p>
-           <p><b>Password:</b> ${password}</p>`,
-    confirmButtonText: "OK"
-  });
-};
+    // Giả lập kiểm tra thông tin đăng nhập
+    const validEmail = "student@example.com";
+    const validPassword = "123";
+
+    if (email === validEmail && password === validPassword) {
+      const userData = {
+        fullName: "Student Example",
+        email,
+        availableBalance: 50000000,
+      };
+
+      if (onLogin) {
+        onLogin(userData);
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Đăng nhập thành công!",
+        text: "Bạn đã vào form payment.",
+        confirmButtonText: "OK"
+      });
+    } else {
+      await Swal.fire({
+        icon: "error",
+        title: "Đăng nhập thất bại!",
+        text: "Sai thông tin đăng nhập. Vui lòng thử lại.",
+        confirmButtonText: "Thử lại"
+      });
+      setPassword(""); // Xóa password để nhập lại
+    }
+  };
 
 
   return (
@@ -63,4 +86,4 @@ export default function Login() {
       </div>
     </div>
   );
-} 
+}

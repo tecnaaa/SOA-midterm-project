@@ -8,9 +8,9 @@
 }
 
 .result-box.success {
-    background-color: #e8f5e9;
     /* Nền xanh lá nhạt */
-    border: 1px solid #4caf50;
+    border: 2px solid blue;
+    animation: name duration timing-function delay iteration-count direction fill-mode;
 }
 
 .result-box.failed {
