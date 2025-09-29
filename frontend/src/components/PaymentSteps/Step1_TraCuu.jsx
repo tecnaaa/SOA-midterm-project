@@ -1,56 +1,109 @@
 import React, { useState } from 'react';
+import './Step1_TraCuu.css'; 
 
 const Step1_TraCuu = ({ data, updateData, nextStep }) => {
-  // State cục bộ cho input
   const [studentIdInput, setStudentIdInput] = useState(data.studentId);
+  const [isFeeLoaded, setIsFeeLoaded] = useState(data.feeAmount > 0);
   
+  // Các hàm xử lý (Tra Cứu và Khởi tạo Thanh toán) giữ nguyên như trước
+
   const handleTraCuu = async () => {
     // 1. GỌI API: GET /tuition/{studentIdInput}
-    // const response = await fetch(`/api/tuition/${studentIdInput}`);
-    // const feeData = await response.json();
-    
-    // Giả lập dữ liệu trả về từ API
+    // Giả lập dữ liệu tra cứu thành công
     const feeData = { studentName: 'Trần Thị B', feeAmount: 12500000 };
 
-    // 2. Cập nhật dữ liệu vào state chung của form
     updateData({
       studentId: studentIdInput,
       studentName: feeData.studentName,
       feeAmount: feeData.feeAmount
     });
-    
-    // 3. Gọi API khởi tạo giao dịch (POST /payments/initiate)
-    // const initiateResponse = await fetch('/api/payments/initiate', { method: 'POST', ... });
-    // const txData = await initiateResponse.json();
-    
-    // Giả lập:
+    setIsFeeLoaded(true);
+  };
+  
+  const handleInitiatePayment = async () => {
+    // 2. GỌI API: POST /payments/initiate (để gửi OTP)
     updateData({ transactionId: 'TXN_123456789' });
-    
-    // 4. Chuyển sang bước 2 (Xác thực OTP)
+    alert(`Đã gửi OTP đến email: ${data.email}. Chuyển sang bước 2.`);
     nextStep();
   };
 
   return (
-    <div className="step-1">
-      <h2>Thông tin Người nộp tiền:</h2>
-      {/* Hiển thị thông tin Read-only từ data.fullName, data.availableBalance */}
-      <p>Số dư: {data.availableBalance.toLocaleString()} VND</p>
+    <div className="step-content">
+      <h2>1. Thông tin Người nộp tiền & Tra cứu Học phí</h2>
       
-      <h2>Tra cứu học phí:</h2>
-      <input
-        type="text"
-        placeholder="Nhập Mã số sinh viên"
-        value={studentIdInput}
-        onChange={(e) => setStudentIdInput(e.target.value)}
-      />
+      {/* ---------------------------------------------------- */}
+      {/* PHẦN 1: THÔNG TIN NGƯỜI NỘP TIỀN (READ-ONLY)         */}
+      {/* ---------------------------------------------------- */}
+      <div className="section-header">THÔNG TIN NGƯỜI DÙNG (CHỈ ĐỌC)</div>
       
-      {data.feeAmount > 0 && (
-          <p>Phí cần đóng: {data.feeAmount.toLocaleString()} VND</p>
+      <div className="input-row">
+        {/* Ô 1: Họ và Tên */}
+        <div className="input-group half-width">
+          <label>Họ và Tên</label>
+          <input type="text" value={data.fullName} readOnly className="read-only" />
+        </div>
+        
+        {/* Ô 2: Số dư Khả dụng */}
+        <div className="input-group half-width">
+          <label>Số dư Khả dụng</label>
+          <input type="text" value={data.availableBalance.toLocaleString() + ' VND'} readOnly className="read-only balance-field" />
+        </div>
+      </div>
+      
+      <div className="input-row">
+        {/* Ô 3: Email */}
+        <div className="input-group full-width">
+          <label>Email (Nhận OTP)</label>
+          <input type="text" value={data.email} readOnly className="read-only" />
+        </div>
+      </div>
+
+      {/* ---------------------------------------------------- */}
+      {/* PHẦN 2: TRA CỨU HỌC PHÍ (INPUT & OUTPUT)              */}
+      {/* ---------------------------------------------------- */}
+      <div className="section-header">THÔNG TIN HỌC PHÍ</div>
+
+      <div className="input-row lookup-row">
+        {/* Ô 4: Nhập Mã số sinh viên */}
+        <div className="input-group three-quarters-width">
+          <label>Mã số sinh viên</label>
+          <input
+            type="text"
+            placeholder="Nhập MSSV"
+            value={studentIdInput}
+            onChange={(e) => setStudentIdInput(e.target.value)}
+          />
+        </div>
+        
+        {/* Nút Tra cứu */}
+        <div className="input-group quarter-width button-aligner">
+          <button onClick={handleTraCuu} className="btn-secondary lookup-button" disabled={!studentIdInput}>
+            Tra Cứu
+          </button>
+        </div>
+      </div>
+      
+      {isFeeLoaded && (
+        <>
+          <div className="input-row">
+            {/* Ô 5: Tên sinh viên */}
+            <div className="input-group half-width">
+              <label>Tên sinh viên</label>
+              <input type="text" value={data.studentName} readOnly className="read-only" />
+            </div>
+            
+            {/* Ô 6: Số tiền cần đóng */}
+            <div className="input-group half-width">
+              <label>Số tiền cần đóng</label>
+              <input type="text" value={data.feeAmount.toLocaleString() + ' VND'} readOnly className="read-only fee-amount-field" />
+            </div>
+          </div>
+
+          <button onClick={handleInitiatePayment} className="btn-primary confirm-button">
+            Xác nhận Giao dịch & Gửi OTP
+          </button>
+        </>
       )}
-      
-      <button onClick={handleTraCuu} disabled={!studentIdInput}>
-        Xác nhận Giao dịch (Gửi OTP)
-      </button>
     </div>
   );
 };

@@ -1,0 +1,29 @@
+/* Styling riêng cho bước 2 */
+
+.otp-info {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.otp-input-area {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+.otp-input-field {
+    padding: 12px;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 5px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.timer {
+    color: #d32f2f;
+    /* Màu đỏ cho đồng hồ đếm ngược */
+    font-weight: bold;
+}

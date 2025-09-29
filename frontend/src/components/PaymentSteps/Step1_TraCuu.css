@@ -1,0 +1,127 @@
+/* Styling chung cho bước 1 */
+
+.body {
+    background: url("../assets/images/tải xuống (1).jpg") no-repeat center center/cover;
+    display: flex;
+}
+
+.step-content {
+    max-width: 750px;
+    /* Tăng chiều rộng để phù hợp với 2 cột */
+}
+
+.section-header {
+    font-size: 14px;
+    font-weight: bold;
+    color: #388e3c;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+/* ------------------------------------ */
+
+
+/* CÁC RULE CHÍNH CHO BỐ CỤC DẠNG Ô */
+
+
+/* ------------------------------------ */
+
+.input-row {
+    display: flex;
+    gap: 20px;
+    /* Khoảng cách giữa các cột */
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group.half-width {
+    flex: 1;
+    /* Chiếm 50% chiều rộng */
+}
+
+.input-group.full-width {
+    width: 100%;
+}
+
+.input-group.three-quarters-width {
+    flex: 3;
+    /* Chiếm 75% chiều rộng */
+}
+
+.input-group.quarter-width {
+    flex: 1;
+    /* Chiếm 25% chiều rộng */
+}
+
+
+/* Style cho label và input */
+
+.input-group label {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.input-group input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #4caf50;
+    outline: none;
+}
+
+
+/* Style cho trường chỉ đọc (Read-only) */
+
+.input-group input.read-only {
+    background-color: #f5f5f5;
+    /* Màu nền xám nhạt */
+    color: #333;
+    cursor: default;
+}
+
+
+/* Căn chỉnh nút Tra Cứu */
+
+.lookup-row {
+    align-items: flex-end;
+    /* Căn nút xuống đáy */
+}
+
+.lookup-button {
+    width: 100%;
+    padding: 10px 0;
+}
+
+
+/* Style nổi bật cho số tiền */
+
+.balance-field,
+.fee-amount-field {
+    font-weight: bold;
+}
+
+.fee-amount-field {
+    color: #d32f2f;
+    /* Màu đỏ nổi bật */
+}
+
+.confirm-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-top: 30px;
+}

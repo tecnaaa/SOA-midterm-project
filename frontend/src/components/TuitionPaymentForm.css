@@ -4,7 +4,8 @@
     display: flex;
     max-width: 1000px;
     margin: 50px auto;
-    background: white;
+    background: url("../assets/images/tải xuống (1).jpg") no-repeat center center/cover;
+    display: flex;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     min-height: 500px;
