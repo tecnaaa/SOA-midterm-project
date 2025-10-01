@@ -69,7 +69,7 @@ export default function Login({ onLogin }) {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <a href="#" className="forgot">Forgot Password?</a>
+          
           </div>
 
           <div className="remember">
@@ -79,9 +79,6 @@ export default function Login({ onLogin }) {
 
           <button type="submit" className="btn-login">Login</button>
 
-          <p className="register-text">
-            Don’t have an Account? <a href="#">Register</a>
-          </p>
         </form>
       </div>
     </div>
