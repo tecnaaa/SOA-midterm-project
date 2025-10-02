@@ -1,26 +1,22 @@
 from fastapi import APIRouter, HTTPException
-from db import users_col
-import bcrypt
-from jose import jwt
-from datetime import datetime, timedelta
-
-SECRET_KEY = "mysecret"
-ALGORITHM = "HS256"
+from pydantic import BaseModel
+from services.auth_service import authenticate_user, create_access_token
+from datetime import timedelta
 
 router = APIRouter()
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+# ---- Login API ----
 @router.post("/login")
-def login(username: str, password: str):
-    user = users_col.find_one({"username": username})
+def login(data: LoginRequest):
+    user = authenticate_user(data.username, data.password)
     if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    if not bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
-        raise HTTPException(status_code=401, detail="Invalid password")
-
-    token = jwt.encode(
-        {"sub": str(user["_id"]), "exp": datetime.utcnow() + timedelta(hours=1)},
-        SECRET_KEY,
-        algorithm=ALGORITHM
+    access_token = create_access_token(
+        data={"sub": user["username"]}, expires_delta=timedelta(minutes=30)
     )
-    return {"access_token": token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer"}

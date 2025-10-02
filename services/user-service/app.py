@@ -1,11 +1,6 @@
 from fastapi import FastAPI
 from routes import auth
 
-app = FastAPI()
+app = FastAPI(title="User Service API")
 
-# gắn route login
-app.include_router(auth.router, prefix="/auth")
-
-@app.get("/")
-def root():
-    return {"message": "iBanking Tuition API running"}
+app.include_router(auth.router, prefix="/auth", tags=["Auth"])

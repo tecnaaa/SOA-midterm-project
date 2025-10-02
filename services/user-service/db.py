@@ -1,11 +1,12 @@
+import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["ibanking_tuition"]
+load_dotenv()
 
+MONGO_URI = os.getenv("MONGO_URI")
+DB_NAME = os.getenv("DB_NAME")
+
+client = MongoClient(MONGO_URI)
+db = client[DB_NAME]
 users_col = db["users"]
-students_col = db["students"]
-accounts_col = db["accounts"]
-transactions_col = db["transactions"]
-otp_col = db["otp"]
-admin_col = db["admin"]
