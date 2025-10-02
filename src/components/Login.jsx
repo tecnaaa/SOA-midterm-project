@@ -1,7 +1,7 @@
 // frontend/src/Login.jsx
 import { useState } from "react";
 import "./Login.css";
-import users from "../../../backend/database/users.json";
+import users from "../../backend/database/users.json";
 import Swal from "sweetalert2";
 
 export default function Login({ onLogin }) {
