@@ -1,53 +1,68 @@
-import React, { useState } from 'react';
-import StepIndicator from './components/StepIndicator.jsx';
-import Step1_TraCuu from './components/PaymentSteps/Step1_TraCuu.jsx';
-import Step2_XacThucOTP from './components/PaymentSteps/Step2_XacThucOTP.jsx';
-import Step3_KetQua from './components/PaymentSteps/Step3_KetQua.jsx';
-import Login from './components/Login.jsx'; // 🔹 import Login
-import './components/TuitionPaymentForm.css';
+import React, { useState, useEffect } from 'react';
+import Login from './components/Login';
+import TuitionPaymentForm from './components/TuitionPaymentForm';
+import './App.css';
 
-const TOTAL_STEPS = 3;
+// Thêm ErrorBoundary component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Lỗi:', error);
+    console.error('Chi tiết:', errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+          <h2>Có lỗi xảy ra</h2>
+          <p>{this.state.error?.message}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            style={{ padding: '10px', cursor: 'pointer' }}
+          >
+            Tải lại trang
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [userData, setUserData] = useState(null);
 
-  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, TOTAL_STEPS));
-  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
-  const updateFormData = (newData) => {
-    setFormData(prev => ({ ...prev, ...newData }));
+  const handleLogin = (user) => {
+    console.log("Thông tin đăng nhập:", user);
+    setIsLoggedIn(true);
+    setUserData(user);
   };
 
-  const handleLogin = (userData) => {
-    setFormData(userData);   // lưu thông tin từ Login
-    setIsLoggedIn(true);     // bật trạng thái đăng nhập
-  };
+  useEffect(() => {
+    console.log("Trạng thái hiện tại:", { isLoggedIn, userData });
+  }, [isLoggedIn, userData]);
 
-  const renderStep = () => {
-    const stepProps = { data: formData, updateData: updateFormData, nextStep, prevStep };
-    switch (currentStep) {
-      case 1: return <Step1_TraCuu {...stepProps} />;
-      case 2: return <Step2_XacThucOTP {...stepProps} />;
-      case 3: return <Step3_KetQua {...stepProps} />;
-      default: return <div>Đang tải form...</div>;
-    }
-  };
-
-  // 🔹 Nếu chưa login thì render Login
-  if (!isLoggedIn) {
-    return <Login onLogin={handleLogin} />;
-  }
-
-  // 🔹 Nếu login rồi thì render PaymentForm
   return (
-    <div className="payment-form-wrapper">
-      <div className="payment-form-sidebar">
-        <StepIndicator currentStep={currentStep} totalSteps={TOTAL_STEPS} />
-      </div>
-      <div className="payment-form-content">
-        {renderStep()}
-      </div>
+    <div className="app-wrapper">
+      <ErrorBoundary>
+        {!isLoggedIn ? (
+          <Login onLogin={handleLogin} />
+        ) : (
+          <div className="payment-page-wrapper">
+            <TuitionPaymentForm initialData={userData} />
+          </div>
+        )}
+      </ErrorBoundary>
     </div>
   );
 }
