@@ -1,1 +1,0 @@
-{"_id":{"$oid":"68dcd501b62e770771154f7c"},"studentID":1001,"fullName":"Tran Thi B","tuition":5000000,"status":"unpaid","createdAt":{"$date":"2025-10-01T07:15:13.729Z"}}

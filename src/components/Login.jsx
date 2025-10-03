@@ -1,46 +1,63 @@
 // frontend/src/Login.jsx
 import { useState } from "react";
 import "./Login.css";
-import users from "../../backend/database/users.json";
 import Swal from "sweetalert2";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt with:", { email, password });
+    setLoading(true);
 
-    const user = users.find((u) => u.email === email && u.password === password);
-    console.log("Found user:", user);
-
-    if (user) {
-      console.log("Calling onLogin with:", user);
-      if (onLogin) {
-        onLogin({
-          userID: user.userID,
-          fullName: user.fullName,
-          email: user.email,
-          phone: user.phone,
-          username: user.username,
-        });
-      }
-      localStorage.setItem("user", JSON.stringify(user));
-      await Swal.fire({
-        icon: "success",
-        title: "Đăng nhập thành công!",
-        text: `Xin chào ${user.fullName}.`,
-        confirmButtonText: "OK",
+    try {
+      const response = await fetch("http://localhost:5000/api/login", { // đổi URL nếu cần
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
-    } else {
+
+      const data = await response.json();
+
+      if (data.success && data.user) {
+        const user = data.user;
+
+        // gọi callback onLogin
+        if (onLogin) onLogin(user);
+
+        // lưu localStorage
+        localStorage.setItem("user", JSON.stringify(user));
+
+        await Swal.fire({
+          icon: "success",
+          title: "Đăng nhập thành công!",
+          text: `Xin chào ${user.fullName}`,
+          confirmButtonText: "OK",
+        });
+
+        setEmail("");
+        setPassword("");
+      } else {
+        await Swal.fire({
+          icon: "error",
+          title: "Đăng nhập thất bại!",
+          text: data.message || "Email hoặc mật khẩu không chính xác.",
+          confirmButtonText: "Thử lại",
+        });
+        setPassword("");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
       await Swal.fire({
         icon: "error",
-        title: "Đăng nhập thất bại!",
-        text: "Email hoặc mật khẩu không chính xác. Vui lòng thử lại.",
-        confirmButtonText: "Thử lại",
+        title: "Lỗi server",
+        text: "Không thể kết nối backend. Vui lòng thử lại sau.",
+        confirmButtonText: "OK",
       });
-      setPassword("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,8 +91,8 @@ export default function Login({ onLogin }) {
             <label htmlFor="remember">Remember Me</label>
           </div>
 
-          <button type="submit" className="btn-login">
-            Login
+          <button type="submit" className="btn-login" disabled={loading}>
+            {loading ? "Đang đăng nhập..." : "Login"}
           </button>
         </form>
       </div>
