@@ -1,0 +1,17 @@
+# Run backup every day at 1 AM
+0 1 * * * /app/scripts/backup.sh >> /app/logs/backup.log 2>&1
+
+# Run monitoring script every 5 minutes
+*/5 * * * * /app/scripts/monitor.sh >> /app/logs/monitor.log 2>&1
+
+# Clean logs older than 30 days every Sunday at 2 AM
+0 2 * * 0 find /app/logs -name "*.log" -mtime +30 -delete
+
+# Check SSL certificate expiry every Monday at 3 AM
+0 3 * * 1 openssl x509 -enddate -noout -in /etc/nginx/ssl/cert.pem | mail -s "SSL Certificate Status" admin@example.com
+
+# Generate system status report every day at 6 AM
+0 6 * * * /app/scripts/monitor.sh --report >> /app/logs/daily-report.log 2>&1
+
+# Rotate logs every day at midnight
+0 0 * * * /usr/sbin/logrotate /etc/logrotate.d/app-logs

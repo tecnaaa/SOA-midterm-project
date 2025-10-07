@@ -19,6 +19,12 @@ body {
     min-height: 500px;
 }
 
+.payment-form-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    border-radius: 12px 12px 0 0;
+}
 
 /* Cột bên trái: Step Indicator (Thanh tiến trình) */
 
@@ -26,8 +32,8 @@ body {
     width: 300px;
     border-right: none;
     /* Chiều rộng cố định */
-    background: rgba(255, 255, 255, 0.5);
-    /* Màu nền nhẹ nhàng */
+    background: white;
+    /* Màu nền trắng đục */
     border-radius: 12px 0 0 12px;
     padding: 30px 0;
     flex-shrink: 0;
@@ -96,4 +102,18 @@ body {
 
 .btn-secondary:hover {
     background: #bbb;
+}
+
+.logout-button {
+    background: #f44336;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.logout-button:hover {
+    background: #d32f2f;
 }

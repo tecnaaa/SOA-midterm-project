@@ -1,60 +1,48 @@
 // frontend/src/Login.jsx
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import "./Login.css";
-import users from "../../../backend/database/users.json";
 import Swal from "sweetalert2";
 
-export default function Login({ onLogin }) {
-  const [email, setEmail] = useState("");
+export default function Login() {
+  const { login } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt with:", { email, password });
 
-    const user = users.find((u) => u.email === email && u.password === password);
-    console.log("Found user:", user);
-
-    if (user) {
-      console.log("Calling onLogin with:", user);
-      if (onLogin) {
-        onLogin({
-          userID: user.userID,
-          fullName: user.fullName,
-          email: user.email,
-          phone: user.phone,
-          username: user.username,
-        });
-      }
-      localStorage.setItem("user", JSON.stringify(user));
+    try {
+      await login(username, password);
+      
       await Swal.fire({
         icon: "success",
         title: "Đăng nhập thành công!",
-        text: `Xin chào ${user.fullName}.`,
-        confirmButtonText: "OK",
+        text: "Bạn đã vào form payment.",
+        confirmButtonText: "OK"
       });
-    } else {
+    } catch (error) {
       await Swal.fire({
         icon: "error",
         title: "Đăng nhập thất bại!",
-        text: "Email hoặc mật khẩu không chính xác. Vui lòng thử lại.",
-        confirmButtonText: "Thử lại",
+        text: error.message,
+        confirmButtonText: "Thử lại"
       });
-      setPassword("");
+      setPassword(""); // Xóa password để nhập lại
     }
   };
 
   return (
     <div className="login-page">
       <div className="login-box">
-        <h1>iBanking💳</h1>
+        <h1>IBanking💳</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              placeholder="Tên đăng nhập"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -62,7 +50,7 @@ export default function Login({ onLogin }) {
           <div className="input-group">
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Mật khẩu"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -71,12 +59,10 @@ export default function Login({ onLogin }) {
 
           <div className="remember">
             <input type="checkbox" id="remember" />
-            <label htmlFor="remember">Remember Me</label>
+            <label htmlFor="remember">Ghi nhớ</label>
           </div>
 
-          <button type="submit" className="btn-login">
-            Login
-          </button>
+          <button type="submit" className="btn-login">Đăng nhập</button>
         </form>
       </div>
     </div>

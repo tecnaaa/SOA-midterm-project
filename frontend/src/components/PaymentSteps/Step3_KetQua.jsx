@@ -1,8 +1,37 @@
 import React from 'react';
 import './Step3_KetQua.css';
+import { useAuth } from '../../contexts/AuthContext';
+import axios from 'axios';
 
-const Step3_KetQua = ({ data }) => {
+const Step3_KetQua = ({ data, updateData, nextStep, prevStep }) => {
+  const { updateUser } = useAuth();
   const isSuccess = data.transactionStatus === 'success';
+
+  const handleBackHome = async () => {
+    try {
+      // Gọi API để lấy thông tin user mới nhất
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8000/api/auth/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      // Cập nhật thông tin user trong context và localStorage
+      const updatedUser = response.data;
+      updateUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+
+      // Quay về bước 1 (form sẽ tự reset do useEffect trong TuitionPaymentForm)
+      prevStep();
+      prevStep();
+    } catch (error) {
+      console.error('Error updating user info:', error);
+      // Vẫn quay về bước 1 nếu có lỗi
+      prevStep();
+      prevStep();
+    }
+  };
 
   return (
     <div className="step-content">
@@ -20,13 +49,13 @@ const Step3_KetQua = ({ data }) => {
       {isSuccess && (
         <div className="transaction-details">
           <p>Mã giao dịch: <b>{data.transactionId}</b></p>
-          <p>Số tiền: <b>{data.feeAmount.toLocaleString()} VND</b></p>
+          <p>Số tiền: <b>{(data.feeAmount || 0).toLocaleString()} VND</b></p>
           <p>Thời gian: {new Date().toLocaleString()}</p>
         </div>
       )}
       
       <button 
-        onClick={() => window.location.reload()} // Tải lại để về trang chủ
+        onClick={handleBackHome}
         className="btn-primary"
       >
         Về Trang Chủ

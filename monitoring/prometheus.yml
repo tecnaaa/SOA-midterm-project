@@ -1,0 +1,44 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+scrape_configs:
+  - job_name: 'tuition-payment-api'
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['backend:8001']
+        labels:
+          service: 'backend-api'
+
+  - job_name: 'nginx'
+    metrics_path: '/nginx_status'
+    static_configs:
+      - targets: ['nginx:80']
+        labels:
+          service: 'nginx'
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+        labels:
+          service: 'redis'
+
+  # MongoDB monitoring via mongoexporter
+  - job_name: 'mongodb'
+    static_configs:
+      - targets: ['mongodb:27017']
+        labels:
+          service: 'mongodb'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets:
+        # Alertmanager config can be added here later
+
+rule_files:
+  - "rules/alert.rules"
+
+# Moving alert rules to a separate file
