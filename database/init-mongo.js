@@ -36,7 +36,9 @@ db.transactions.createIndex({ "studentId": 1 });
 db.transactions.createIndex({ "createdAt": 1 });
 db.transactions.createIndex({ "status": 1 });
 db.otp.createIndex({ "createdAt": 1 }, { expireAfterSeconds: 300 });
-db.otp.createIndex({ "transactionId": 1 });  // Removed unique constraint
+db.otp.createIndex({ "transactionId": 1 });
+db.transactions.createIndex({ "transactionId": 1 }, { unique: true });
+db.otp.createIndex({ "code": 1, "userId": 1 }, { unique: true });
 
 // Import users data
 try {
