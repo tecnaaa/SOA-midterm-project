@@ -1,1 +1,30 @@
-{"_id":{"$oid":"68dcd501b62e770771154f7c"},"studentID":1001,"fullName":"Tran Thi B","tuition":5000000,"status":"unpaid","createdAt":{"$date":"2025-10-01T07:15:13.729Z"}}
+[
+  {
+    "studentId": "52300001",
+    "fullName": "Nguyen Van Hoc",
+    "tuitionAmount": 12500000,
+    "isPaid": false,
+    "createdAt": { "$date": "2025-10-01T07:00:00Z" }
+  },
+  {
+    "studentId": "52300002",
+    "fullName": "Tran Thi Huong",
+    "tuitionAmount": 15000000,
+    "isPaid": false,
+    "createdAt": { "$date": "2025-10-01T07:15:00Z" }
+  },
+  {
+    "studentId": "52300003",
+    "fullName": "Le Van Thanh",
+    "tuitionAmount": 13500000,
+    "isPaid": false,
+    "createdAt": { "$date": "2025-10-01T07:30:00Z" }
+  },
+  {
+    "studentId": "52300004",
+    "fullName": "Pham Minh Duc",
+    "tuitionAmount": 14000000,
+    "isPaid": false,
+    "createdAt": { "$date": "2025-10-01T07:45:00Z" }
+  }
+]

@@ -19,6 +19,12 @@ body {
     min-height: 500px;
 }
 
+.payment-form-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    border-radius: 12px 12px 0 0;
+}
 
 /* Cột bên trái: Step Indicator (Thanh tiến trình) */
 
@@ -26,8 +32,8 @@ body {
     width: 300px;
     border-right: none;
     /* Chiều rộng cố định */
-    background: rgba(255, 255, 255, 0.5);
-    /* Màu nền nhẹ nhàng */
+    background: rgba(255, 255, 255, 0.7);
+    /* Màu nền trắng đục */
     border-radius: 12px 0 0 12px;
     padding: 30px 0;
     flex-shrink: 0;
@@ -73,7 +79,7 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 20px;
+    margin-right: 20px;
     transition: background 0.3s;
 }
 
@@ -82,18 +88,34 @@ body {
 }
 
 .btn-secondary {
-    background: #ccc;
-    color: #333;
+    background: #4CAF50;
+    color: #333333;
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 15px;
-    transition: background 0.3s;
+    transition: background .3s;
 }
 
 .btn-secondary:hover {
     background: #bbb;
+}
+
+.logout-button {
+    background: #4CAF50;
+    color: #333333;
+    font-weight: bold;
+    padding: inherit;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background .3s;
+}
+
+.logout-button:hover {
+    background: #d32f2f;
 }

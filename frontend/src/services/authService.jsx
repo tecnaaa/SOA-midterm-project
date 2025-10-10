@@ -1,36 +1,75 @@
-// Dữ liệu giả lập (Mock Data) của người dùng sau khi đăng nhập thành công
-const MOCK_USER_DATA = {
-    // Thông tin người nộp tiền (Payer Info)
-    fullName: 'Nguyễn Văn A',
-    phoneNumber: '0912345678',
-    email: 'student@example.com', // Cần cho việc gửi OTP
-    address: '123 Đường ABC',
-    availableBalance: 50000000, // Số dư khả dụng
-    userId: '123',
-    accessToken: 'MOCK_TOKEN_XYZ' 
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000/api';
+
+export const login = async (username, password) => {
+    try {
+        // Tạo form data để gửi request
+        const formData = new URLSearchParams();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        const response = await axios.post(`${API_URL}/auth/login`, formData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        if (response.data.access_token) {
+            // Lưu token và thông tin user
+            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            return response.data.user;
+        }
+        throw new Error('Không nhận được token từ server');
+    } catch (error) {
+        console.error('Login error:', error.response?.data || error.message);
+        throw new Error(error.response?.data?.detail || 'Đăng nhập thất bại');
+    }
 };
 
-/**
- * Hàm giả lập đăng nhập: Thay thế cho việc gọi API POST /auth/login
- */
-export const mockLogin = () => {
-    // Tạm thời lưu dữ liệu người dùng vào Local Storage để giả lập session
-    localStorage.setItem('user', JSON.stringify(MOCK_USER_DATA));
-    localStorage.setItem('token', MOCK_USER_DATA.accessToken);
-    return MOCK_USER_DATA;
+export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
 };
 
-/**
- * Hàm kiểm tra xem đã "đăng nhập" chưa
- */
-export const isUserLoggedIn = () => {
-    return localStorage.getItem('token') !== null;
+export const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem('user'));
 };
 
-/**
- * Lấy dữ liệu người dùng đã giả lập
- */
-export const getLoggedInUser = () => {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+export const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    return !!token;
 };
+
+export const refreshUserInfo = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) return null;
+
+        const response = await axios.get(`${API_URL}/auth/me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.data) {
+            localStorage.setItem('user', JSON.stringify(response.data));
+            return response.data;
+        }
+        return null;
+    } catch (error) {
+        console.error('Refresh user info error:', error);
+        return null;
+    }
+};
+
+const authService = {
+    login,
+    logout,
+    getCurrentUser,
+    isAuthenticated,
+    refreshUserInfo
+};
+
+export default authService;

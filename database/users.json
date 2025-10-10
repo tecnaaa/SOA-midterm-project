@@ -2,37 +2,41 @@
   {
     "userID": 1,
     "username": "student01",
-    "password": "123456",
+    "hashedPassword": "$2b$12$s81ZLDADtXiND2PzaKTP1OhypjHNmMp/Fk1XSXxQi9.Q9yweAEe9S",
     "fullName": "Nguyen Van A",
-    "email": "a.nguyen@example.com",
+    "email": "hoaianduong214@gmail.com",
     "phone": "0901234567",
-    "createdAt": { "$date": "2025-10-01T08:00:00Z" }
+    "balance": 50000000,
+    "createdAt": { "$date": "2025-10-03T16:19:57.440Z" }
   },
   {
     "userID": 2,
     "username": "student02",
-    "password": "abcdef",
+    "hashedPassword": "$2b$12$s81ZLDADtXiND2PzaKTP1OhypjHNmMp/Fk1XSXxQi9.Q9yweAEe9S",
     "fullName": "Tran Thi B",
-    "email": "b.tran@example.com",
+    "email": "hoaianduong2411@gmail.com",
     "phone": "0902345678",
+    "balance": 30000000,
     "createdAt": { "$date": "2025-10-01T08:30:00Z" }
   },
   {
     "userID": 3,
-    "username": "teacher01",
-    "password": "qwerty",
+    "username": "student03",
+    "hashedPassword": "$2b$12$s81ZLDADtXiND2PzaKTP1OhypjHNmMp/Fk1XSXxQi9.Q9yweAEe9S",
     "fullName": "Le Van C",
     "email": "c.le@example.com",
     "phone": "0903456789",
+    "balance": 20000000,
     "createdAt": { "$date": "2025-10-01T09:00:00Z" }
   },
   {
     "userID": 4,
-    "username": "admin01",
-    "password": "admin123",
+    "username": "student04",
+    "hashedPassword": "$2b$12$s81ZLDADtXiND2PzaKTP1OhypjHNmMp/Fk1XSXxQi9.Q9yweAEe9S",
     "fullName": "Pham Thi D",
     "email": "d.pham@example.com",
     "phone": "0904567890",
+    "balance": 40000000,
     "createdAt": { "$date": "2025-10-01T09:30:00Z" }
   }
 ]

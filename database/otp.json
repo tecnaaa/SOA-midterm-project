@@ -1,0 +1,20 @@
+[
+  {
+    "otpId": "OTP001",
+    "userId": 1,
+    "code": "123456",
+    "transactionId": "TX001",
+    "isUsed": true,
+    "createdAt": { "$date": "2025-10-01T08:15:00Z" },
+    "expiresAt": { "$date": "2025-10-01T08:20:00Z" }
+  },
+  {
+    "otpId": "OTP002",
+    "userId": 2,
+    "code": "654321",
+    "transactionId": "TX002",
+    "isUsed": false,
+    "createdAt": { "$date": "2025-10-01T09:00:00Z" },
+    "expiresAt": { "$date": "2025-10-01T09:05:00Z" }
+  }
+]
