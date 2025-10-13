@@ -68,7 +68,7 @@ try {
             username: "student03",
             hashedPassword: "$2b$12$s81ZLDADtXiND2PzaKTP1OhypjHNmMp/Fk1XSXxQi9.Q9yweAEe9S",
             fullName: "Le Van C",
-            email: "hadg",
+            email: "giabao14022005@gmail.com",
             phone: "0903456789",
             balance: 20000000,
             createdAt: new Date("2025-10-01T09:00:00Z")

@@ -1,0 +1,158 @@
+/* Nền background */
+
+.login-page {
+    background: url('../assets/images/kids-getting-back-school-together.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+/* Navbar */
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 50px;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.nav-login {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 5px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* Box login */
+
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 3rem;
+    /* Tăng padding */
+    border-radius: 15px;
+    /* Tăng bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Tăng shadow */
+    width: 100%;
+    max-width: 500px;
+    /* Tăng max-width từ 400px lên 500px */
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    /* Tăng margin */
+    font-size: 2.5rem;
+    /* Tăng font size */
+}
+
+
+/* Input */
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.forgot {
+    position: absolute;
+    right: 0;
+    bottom: -18px;
+    font-size: 12px;
+    color: #000;
+    text-decoration: none;
+}
+
+
+/* Remember me */
+
+.remember {
+    margin: 15px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+
+/* Button login */
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    /* Tăng padding button */
+    margin-top: 20px;
+    /* Thêm margin top */
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    font-size: 1.2rem;
+    /* Tăng font size */
+    cursor: pointer;
+}
+
+.register-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 480px) {
+    .login-box {
+        padding: 2rem;
+        /* Giảm padding trên mobile nhưng vẫn lớn hơn trước */
+    }
+    .login-box h1 {
+        font-size: 1.5rem;
+    }
+    .input-group input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .btn-login {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .login-box {
+        padding: 1rem;
+    }
+    .login-box h1 {
+        font-size: 1.2rem;
+    }
+    .remember {
+        font-size: 0.8rem;
+    }
+    .register-text {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .login-box {
+        min-width: 500px;
+        /* Tăng min-width cho tablet trở lên */
+    }
+}
