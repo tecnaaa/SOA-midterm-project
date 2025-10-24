@@ -4,7 +4,7 @@ import bg from '../assets/images/gradient.jpg';
 
 const StepIndicator = ({ currentStep, totalSteps }) => {
   const steps = [
-    "1. Tra cứu & Xác nhận TT", 
+    "1. Tra cứu & Xác nhận", 
     "2. Xác thực OTP", 
     "3. Kết quả Giao dịch"
   ];

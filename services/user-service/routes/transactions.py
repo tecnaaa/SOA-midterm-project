@@ -110,8 +110,22 @@ async def initiate_transaction(
                 status_code=400,
                 detail="MSSV không hợp lệ. MSSV phải có đúng 8 chữ số"
             )
+
+        # Kiểm tra xem người dùng có giao dịch đang chờ với bất kỳ sinh viên nào không
+        user_pending_transaction = transactions_col.find_one({
+            "userId": str(current_user.id),
+            "status": "PENDING",
+            "createdAt": {"$gt": datetime.utcnow() - timedelta(minutes=15)}
+        })
+        
+        if user_pending_transaction:
+            logging.warning(f"[Transaction Initiate] User {current_user.id} has pending transaction")
+            raise HTTPException(
+                status_code=409,
+                detail="Bạn đang có một giao dịch chưa hoàn tất. Vui lòng hoàn tất hoặc đợi giao dịch hết hạn"
+            )
             
-        # Kiểm tra giao dịch đang pending
+        # Kiểm tra giao dịch đang pending cho sinh viên
         existing_pending = transactions_col.find_one({
             "studentId": request.studentId,
             "status": "PENDING",
@@ -370,7 +384,7 @@ async def verify_transaction(
             "transaction_id": str(transaction_obj_id),
             "student_id": transaction["studentId"],
             "amount": transaction["amount"],
-            "completed_at": completion_time.strftime("%Y-%m-%d %H:%M:%S")
+            "completed_at": completion_time.strftime("%Y-%m-%d")
         }
         
         background_tasks.add_task(

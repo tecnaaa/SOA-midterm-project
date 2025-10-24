@@ -18,7 +18,7 @@ export default function Login() {
       await Swal.fire({
         icon: "success",
         title: "Đăng nhập thành công!",
-        text: "Bạn đã vào form payment.",
+        text: "Bạn đã vào iBanking.",
         confirmButtonText: "OK"
       });
     } catch (error) {
@@ -35,7 +35,7 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-box">
-        <h1>IBanking💳</h1>
+        <h1>iBanking💳</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
